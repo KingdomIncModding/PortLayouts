@@ -1,4 +1,6 @@
-# Port Layouts
+# Port Layouts 1.0.10
+
+[Download the player release](https://github.com/urakkaamyx/KingdomInc_PortLayouts/releases/tag/v1.0.10)
 
 Choose which sides of a Kingdom Inc node hold its inputs and outputs. The node body and icon stay upright; labels move to an edge without ports.
 
@@ -26,7 +28,7 @@ Labels remain visible normally and sit on an edge without I/O ports. During drag
 
 Existing connections stay attached to the same inputs/outputs. Pipe endpoints and pipe hitboxes follow their new sides; manual pipe bends stay in place. Node movement keeps the game's native 64-unit snapping and Ctrl free-placement behavior. Horizontal port rows use the same 64-unit spacing. Layout changes that would overlap another node are rejected.
 
-Version 1.0.10 moves the whole top/bottom port two more world units left, for a total seven-unit shift (seven screen pixels at normal 1:1 zoom). Its connection snap point, hitbox, drag preview and pipe endpoint move together with the artwork. Existing manual pipe bends and node snapping are retained, including Snappy's finer grid when installed. Copy previews match the port geometry. Labels still hide during dragging with hover-to-reveal on the node body or ports. Invisible labels do not block the mouse, and native label dragging remains available. Free-edge placement, readable bottom text, inward-facing side text, and expandable-building restrictions are retained.
+Top/bottom ports use a seven-world-unit left offset, with their connection snap points, hitboxes, drag previews and pipe endpoints moving together. Copy previews use the same geometry. Node movement respects Snappy's finer grid when that plugin is installed.
 
 Layout and reversal are saved per node. Native copying/picker placement and Sharable Blueprints retain them; the copy preview shows the relocated ports. Recipients need Port Layouts to display custom layouts.
 
@@ -40,29 +42,42 @@ With the game closed, extract the player ZIP into the game directory. The plugin
 BepInEx/plugins/PortLayouts/PortLayouts.dll
 ```
 
-For a local source build:
-
-```powershell
-dotnet build _Mods/PortLayouts/PortLayouts.csproj -c Release
-& _Mods/PortLayouts/install.ps1
-```
-
 The installer backs up an existing Port Layouts DLL under this project's `_Backup` folder. It does not replace other plugins. Start the game normally after installation. To stage an update while the game is running, use `install.ps1 -StageForNextLaunch`; the running session keeps its original mapped DLL, and the update loads after restarting the game.
 
 To uninstall, close the game and remove only `BepInEx/plugins/PortLayouts/PortLayouts.dll`. Nodes return to native Left/Right placement, with their native mirrored flag retained. Native saves ignore the optional layout field; saving without this plugin drops custom layout information. Keep a save backup if you intend to reinstall and restore those layouts.
 
-## Verification
+## Building from source
+
+Requires a .NET SDK with .NET Standard 2.1 support, PowerShell, and a local installation of the Mono game with BepInEx 5. Python 3 is needed for packaging. Game, Unity, BepInEx and Harmony assemblies are referenced from that installation and are not included in this repository.
+
+Clone into `<KingdomInc>/_Mods/PortLayouts`; the build, installation and diagnostic scripts resolve the game directory from that location. Run these commands from the game directory for a fresh checkout:
+
+```powershell
+git clone https://github.com/urakkaamyx/KingdomInc_PortLayouts.git _Mods/PortLayouts
+dotnet build _Mods/PortLayouts/PortLayouts.csproj -c Release
+& ./_Mods/PortLayouts/install.ps1
+```
+
+The output is `_Mods/PortLayouts/bin/Release/netstandard2.1/PortLayouts.dll`. Close the game before installation, or use the staging option described above. The game and its extracted source are not needed in a GitHub checkout; only the installed assemblies are used for building. Hosted GitHub runners cannot build this project without those local game dependencies.
+
+## Verification and packaging
 
 The isolated runtime creates a disposable kingdom, blocks normal saves/autosaves/loading and achievements, and runs the actual game renderers, controls and physics. It does not load a normal kingdom. Diagnostic code runs only with `-portlayouts-smoke`.
 
 ```powershell
-& _Mods/PortLayouts/verify-isolated.ps1
-& _Mods/PortLayouts/verify-isolated.ps1 -WithExistingPlugins
+& ./_Mods/PortLayouts/verify-isolated.ps1
+& ./_Mods/PortLayouts/verify-isolated.ps1 -WithExistingPlugins
 python _Mods/PortLayouts/Tools/package.py
 ```
 
 Checks cover all six layouts and their reversals on a fixed-slot Filter, native click modifiers, upright node geometry, label visibility before/after dragging and mouse hover, hidden-label raycast passthrough, preserved native label drag handles, free-edge label placement, text orientation, port-hitbox clearance, copy-preview titles, pipe endpoints/hitboxes/bends, collision rejection, dragging/snapping/cancellation, saves, copying/placement, and companion nodes. Arrow alignment checks read actual sprite alpha pixels for every connection, hover and error state. A connected sword Blacksmith reproduces two top inputs and one bottom output for a detailed screenshot. Restriction regressions load old layouts, reject cycling, and use the actual native + controls to expand and collapse Collectors, Distributors and Manifolds while checking native sizes and collision boxes. Native Alt flipping and the Ledger restriction are also checked. The companion run includes Snappy and verifies Sharable Blueprints capture and compact KIB2 sharing. Reports, logs and native-rendered screenshots are kept locally under `Verification/`.
 
 The project builds against locally installed game and BepInEx assemblies. They are not redistributed in the package. Mod-manager deployment has not been tested; use manual installation.
+
+Version 1.0.10 passed **2,417 isolated runtime checks** and **2,497 companion checks**. Native pipe dragging and dropping were checked on both shifted top/bottom ports and reversed layouts, including actual UI raycasts, hitboxes, previews and committed pipe endpoints.
+
+The optional companion run requires these plugins to be installed locally: Container Colors, Nightmare Distiller Fix, Path Finder, Party Node, Sharable Blueprints, Kingdom Inc Factory API, Ledger, Leyline Conduits and Snappy. They are not required to use Port Layouts. Packaging requires successful reports for the current DLL from both runs and an installed DLL matching the tested build. The ZIP contains only the plugin and player instructions. Generated packages, private runtimes, reports, backups and local publication notes stay outside Git.
+
+Author: Urakka. Plugin ID: `urakka.kingdominc.portlayouts`.
 
 Source repository: https://github.com/urakkaamyx/KingdomInc_PortLayouts

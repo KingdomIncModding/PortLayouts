@@ -76,3 +76,19 @@ Thumbs.db
 /Nexus/MEDIA-STATUS.txt
 /Nexus/NEXUS_DRAFT_FIELDS.txt
 /Nexus/RELEASE_NOTES_*.txt
+
+# GitHub preparation receipts and release drafts stay local.
+/Nexus/GITHUB_*.txt
+/Nexus/GITHUB_*.json
+
+# Game dependencies and compiled/player archives must not enter source control.
+*.dll
+*.exe
+*.pdb
+*.zip
+*.7z
+*.rar
+/BepInEx/
+/KingdomInc_Data/
+/MonoBleedingEdge/
+/Extracted/
