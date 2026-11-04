@@ -1,0 +1,1 @@
+Choose six input/output port layouts with Shift+Alt+click and reverse them with Alt+click. Ports, snapping, hitboxes, pipe endpoints and copy previews stay aligned, while readable node labels move to an edge without ports. Requires BepInEx 5.

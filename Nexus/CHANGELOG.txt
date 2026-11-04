@@ -1,0 +1,8 @@
+Port Rotation 1.0.10 - initial Nexus release
+
+- Six input/output side layouts, with Alt reversal and Shift+Alt cycling.
+- Top/bottom port geometry shares aligned artwork, hitboxes, snap points, pipe endpoints and previews.
+- Labels move to a free edge, keep readable orientation, and hide during dragging with hover-to-reveal.
+- Expandable-slot buildings retain native Left/Right behavior; native Alt flipping is preserved.
+- Per-node layout persistence, native copying and Sharable Blueprints compatibility.
+- Verified native pipe dragging/drop and movement with Snappy installed.

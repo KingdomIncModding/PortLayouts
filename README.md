@@ -1,4 +1,8 @@
-# Port Layouts 1.0.10
+# Port Rotation 1.0.10
+
+[Nexus Mods page](https://www.nexusmods.com/kingdominc/mods/15)
+
+The internal plugin name remains Port Layouts, with the existing `PortLayouts.dll` filename and save metadata.
 
 [Download the player release](https://github.com/urakkaamyx/KingdomInc_PortLayouts/releases/tag/v1.0.10)
 
