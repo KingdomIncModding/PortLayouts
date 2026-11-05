@@ -61,6 +61,10 @@ namespace KingdomPortLayouts
             if (error == null) try
             {
                 Check(source.World && sink.World && pipe.World, "Native nodes and pipes loaded in disposable kingdom");
+                VerifyFoundationResearch(source, directory);
+                Canvas.ForceUpdateCanvases();
+                var nativeTitle = ((Image)AccessTools.Field(typeof(WorldFlowElement), "_labelContainer").GetValue(source.World)).rectTransform;
+                VerifyTitleGeometry(nativeTitle, (RectTransform)source.World.transform, PortSide.Top);
                 VerifyExpansionSizing(directory);
                 var originalPosition = source.Position;
                 var originalBends = pipe.Nodes.ToArray();
@@ -217,7 +221,7 @@ namespace KingdomPortLayouts
             {
                 VerifyLabelVisibility(source, false, "Placement drag away from node");
                 var title = ((Image)AccessTools.Field(typeof(WorldFlowElement), "_labelContainer").GetValue(source.World)).rectTransform;
-                InputSystem.QueueStateEvent(mouse, new MouseState { position = ScreenCenter(title) });
+                InputSystem.QueueStateEvent(mouse, new MouseState { position = ScreenOutsideTitle(title, PortLabels.Side(source)) });
             }
             catch (Exception ex) { error = ex.ToString(); }
             yield return new WaitForSecondsRealtime(.3f);
@@ -226,7 +230,7 @@ namespace KingdomPortLayouts
                 VerifyLabelVisibility(source, false, "Dragging over label alone");
                 var title = ((Image)AccessTools.Field(typeof(WorldFlowElement), "_labelContainer").GetValue(source.World)).rectTransform;
                 var hits = new List<RaycastResult>();
-                EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current) { position = ScreenCenter(title) }, hits);
+                EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current) { position = ScreenOutsideTitle(title, PortLabels.Side(source)) }, hits);
                 Check(!hits.Any(hit => hit.gameObject.transform == title || hit.gameObject.transform.IsChildOf(title)), "Hidden title does not intercept UI raycasts");
                 InputSystem.QueueStateEvent(mouse, new MouseState { position = ScreenCenter((RectTransform)source.World.transform) });
             }
@@ -307,6 +311,7 @@ namespace KingdomPortLayouts
                 {"passed", error == null}, {"version", Version}, {"gameVersion", Application.version},
                 {"unityVersion", Application.unityVersion}, {"bepInExVersion", typeof(BaseUnityPlugin).Assembly.GetName().Version.ToString()},
                 {"dllSha256", HashFile(typeof(PortLayoutsPlugin).Assembly.Location)},
+                {"foundationSha256", HashFile(typeof(KingdomFoundation.Api.FoundationApi).Assembly.Location)},
                 {"count", checks.Count}, {"checks", new JsonArray(checks.Select(c => (JsonValue)c).ToArray())},
                 {"companions", new JsonArray(companions.Select(c => (JsonValue)c.ElementType).ToArray())}, {"error", error ?? ""}
             };
@@ -329,6 +334,12 @@ namespace KingdomPortLayouts
         {
             var canvas = rect.GetComponentInParent<Canvas>();
             return RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, rect.TransformPoint(rect.rect.center));
+        }
+        static Vector2 ScreenOutsideTitle(RectTransform title, PortSide side)
+        {
+            // The title now overlaps the body. Only its outer half is label-only hover.
+            var point = title.rect.center + Vector2.up * (title.rect.height * (side == PortSide.Bottom ? -.4f : .4f));
+            return RectTransformUtility.WorldToScreenPoint(title.GetComponentInParent<Canvas>().worldCamera, title.TransformPoint(point));
         }
         void VerifyLabelVisibility(FlowElement node, bool visible, string scenario)
         {

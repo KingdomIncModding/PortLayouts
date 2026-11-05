@@ -1,44 +1,34 @@
-[b]Port Rotation - 1.0.10[/b]
-Choose which sides of your Kingdom Inc nodes hold their inputs and outputs, with connections and snapping following the visible ports.
+[b]Port Rotation[/b]
+Choose which sides of your Kingdom Inc buildings hold their inputs and outputs. The building body and icon stay upright, with ports, pipe connections and snapping following the selected layout.
 
-[b]Controls[/b]
+[b]Unlock and controls[/b]
+Open [b]Tech Tree > Mods[/b] and research [b]Port Rotation[/b] for free.
 [list]
-[*][b]Shift + Alt + left-click[/b] a node body or label to cycle: Left/Right, Top/Bottom, Left/Top, Left/Bottom, Right/Top, Right/Bottom. Inputs are listed first.
-[*][b]Alt + left-click[/b] reverses the current pair. Cycling to the next layout resets reversal.
+[*][b]Shift + Alt + left-click[/b] a building or its label to cycle: Left/Right, Top/Bottom, Left/Top, Left/Bottom, Right/Top, Right/Bottom. Inputs are listed first.[/*]
+[*][b]Alt + left-click[/b] reverses the current pair. Ordinary flipping remains available before research.[/*]
 [/list]
-The building body and icon stay upright. This changes the IO layout rather than turning the whole building sideways.
+Cycling returns to Left/Right after the sixth layout and resets reversal to the listed direction.
 
-[b]Ports, labels and connections[/b]
+[b]Labels and connections[/b]
 [list]
-[*]Port artwork, connection snap points, hitboxes, pipe endpoints and placement previews use matching positions.
-[*]Existing connections stay attached to the same inputs and outputs. Manual pipe bends are retained.
-[*]Labels use an edge without ports. Top/bottom text reads normally; sideways text faces inward toward the node.
-[*]Labels hide during dragging and appear when hovering over the node or its ports. The node being moved retains its own label.
-[*]Layouts and reversal save per node. Native copies and Sharable Blueprints preserve them; recipients need Port Rotation to display custom layouts.
-[*]Snappy's finer movement grid is supported when installed.
+[*]Labels overlap a border without ports, matching normal upright labels.[/*]
+[*]Top and bottom labels read normally. Side labels run sideways with the bottoms of the letters facing the building.[/*]
+[*]Labels hide during dragging and appear when hovering over a building or its ports. The building being moved keeps its own label.[/*]
+[*]Existing pipe connections and manual bends remain intact. Port artwork, connection points and placement previews stay aligned.[/*]
+[*]Layouts, reversal and research progress save with the kingdom. Native copying preserves layouts.[/*]
+[*]Existing rotated buildings retain their layout after updating, even before the new research is purchased.[/*]
 [/list]
 
-[b]Expandable-slot restriction[/b]
-Collector, Distributor, Manifold and Ledger keep native Left/Right ports. Shift+Alt does nothing on these buildings; plain Alt still flips them normally. Older custom layouts on them return to native sides while retaining port counts, mirroring and connections.
-
-[b]Requirements[/b]
-Kingdom Inc, Unity Mono edition, with [url=https://github.com/BepInEx/BepInEx/releases]BepInEx 5.x[/url] and its bundled Harmony. Tested on Kingdom Inc Release v1.0.12, Unity 6000.3.27f2 and BepInEx 5.4.23.6. No additional plugin is required.
+[b]Expandable buildings[/b]
+Buildings with expandable port slots keep their native Left/Right ports. Shift+Alt does nothing on them; Alt still flips them normally.
 
 [b]Installation and updating[/b]
-1. Install BepInEx 5 for the Mono game if needed.
-2. Close the game and extract the player ZIP into the Kingdom Inc game folder.
-3. Confirm the plugin is at [b]BepInEx/plugins/PortLayouts/PortLayouts.dll[/b].
-4. Start the game and use Shift+Alt+left-click on a fixed-slot node.
-The existing internal plugin name and DLL remain [b]Port Layouts[/b] / [b]PortLayouts.dll[/b]. Updating replaces that file; do not install duplicate copies. Manual installation is supported; mod-manager deployment has not been tested.
+Use the Mono edition of Kingdom Inc with BepInEx 5. Install the requirements listed on this page, close the game and extract the player ZIP into the game folder.
 
-[b]Compatibility and testing[/b]
-Version 1.0.10 passed 2,417 isolated runtime checks and 2,497 companion checks, including Snappy, Party Node, Ledger, Leyline Conduits and Sharable Blueprints. Actual native pipe dragging/drop, UI raycasts, previews, hitboxes and committed endpoints were exercised on top/bottom and reversed layouts. Tests used disposable kingdoms with normal save loading, save writes and achievements blocked.
+The plugin must be at [b]BepInEx/plugins/PortLayouts/PortLayouts.dll[/b]. Replace the existing DLL when updating and restart the game. The internal name remains [b]Port Layouts[/b].
 
 [b]Removal[/b]
-Close the game and remove only the PortLayouts.dll file. Nodes return to native Left/Right with their native mirrored flag retained. Saving without the plugin drops custom layout metadata, so keep a save backup if you intend to reinstall and restore those layouts later.
+Close the game and remove only PortLayouts.dll. Buildings return to native Left/Right ports with their normal mirrored setting retained. Saving without the plugin drops custom layout information; keep a save backup if you intend to restore it later.
 
 [b]Credits and source[/b]
-Created by Urakka (rockyamyx). [url=https://github.com/urakkaamyx/KingdomInc_PortLayouts]Source repository[/url]. Game artwork belongs to its respective owners. The promotional cover was generated with OpenAI image generation using the author's shared Kingdom Inc mod-thumbnail template; gameplay images are native in-game diagnostic captures.
-
-[b]Troubleshooting[/b]
-Include the game/plugin version, selected port layout and a screenshot in bug reports. The log is [b]BepInEx/LogOutput.log[/b], where this plugin appears as [b]Port Layouts 1.0.10[/b].
+Created by Urakka (rockyamyx). [url=https://github.com/urakkaamyx/KingdomInc_PortLayouts]Source repository[/url]. Game artwork belongs to its respective owners. The promotional cover uses the author's shared thumbnail template with AI-generated text; gameplay images show Port Rotation in-game.

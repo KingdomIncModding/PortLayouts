@@ -17,16 +17,19 @@ def digest(data):
 
 def main():
     dll = (PROJECT / 'bin/Release/netstandard2.1/PortLayouts.dll').read_bytes()
+    foundation = (GAME / 'BepInEx/plugins/Foundation/Foundation.dll').read_bytes()
     reports = [json.loads((PROJECT / 'Verification' / name).read_text())
                for name in ('runtime-tests.json', 'compatibility-tests.json')]
     for report in reports:
         assert report['passed'] and not report['error'] and report['count'] >= 300
         assert report['version'] == VERSION and report['dllSha256'] == digest(dll)
+        assert report['foundationSha256'] == digest(foundation)
     assert set(reports[1]['companions']) == {'Party', 'Ledger', 'LeylineConduit'}
     assert dll == (GAME / 'BepInEx/plugins/PortLayouts/PortLayouts.dll').read_bytes()
     payload = {
         'BepInEx/plugins/PortLayouts/PortLayouts.dll': dll,
         'Port Layouts README.txt': (PROJECT / 'README.md').read_bytes(),
+        'Port Rotation requirements.txt': (PROJECT / 'Nexus/REQUIREMENTS.txt').read_bytes(),
     }
     output = PROJECT / 'Releases'
     output.mkdir(exist_ok=True)
@@ -46,6 +49,7 @@ def main():
         'name': 'Port Layouts', 'version': VERSION, 'publication': 'local only',
         'archive': str(archive), 'bytes': archive.stat().st_size, 'sha256': digest(archive.read_bytes()),
         'dllSha256': digest(dll), 'gameVersion': reports[0]['gameVersion'],
+        'foundationSha256': digest(foundation), 'requiresFoundation': '0.5.0+',
         'runtimeChecks': reports[0]['count'], 'companionChecks': reports[1]['count'],
         'files': sorted(payload), 'cleanExtractionPassed': True,
     }

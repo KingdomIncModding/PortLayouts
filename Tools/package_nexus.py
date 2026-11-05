@@ -18,17 +18,20 @@ def sha(data):
 
 def main():
     dll = (PROJECT / 'bin/Release/netstandard2.1/PortLayouts.dll').read_bytes()
+    foundation = (GAME / 'BepInEx/plugins/Foundation/Foundation.dll').read_bytes()
     assert dll == (GAME / 'BepInEx/plugins/PortLayouts/PortLayouts.dll').read_bytes()
     reports = [json.loads((PROJECT / 'Verification' / name).read_text())
                for name in ('runtime-tests.json', 'compatibility-tests.json')]
     for report in reports:
         assert report['passed'] and not report['error'] and report['count'] >= 300
         assert report['version'] == VERSION and report['dllSha256'] == sha(dll)
+        assert report['foundationSha256'] == sha(foundation)
     assert set(reports[1]['companions']) == {'Party', 'Ledger', 'LeylineConduit'}
     payload = {
         'BepInEx/plugins/PortLayouts/PortLayouts.dll': dll,
         'Port Rotation README.txt': (PROJECT / 'Nexus/README.txt').read_bytes(),
         'Port Rotation CHANGELOG.txt': (PROJECT / 'Nexus/CHANGELOG.txt').read_bytes(),
+        'Port Rotation requirements.txt': (PROJECT / 'Nexus/REQUIREMENTS.txt').read_bytes(),
     }
     OUT.mkdir(parents=True, exist_ok=True)
     archive = OUT / f'KingdomInc-PortRotation-{VERSION}.zip'
@@ -49,14 +52,15 @@ def main():
     (OUT / thumbnail.name).write_bytes(thumbnail.read_bytes())
     screenshots = OUT / 'Screenshots'
     screenshots.mkdir(exist_ok=True)
-    for name in ('port-layouts.png', 'top-bottom-pipe-alignment.png'):
+    for name in ('port-layouts.png', 'top-bottom-pipe-alignment.png', 'port-rotation-research.png'):
         (screenshots / name).write_bytes((PROJECT / 'Verification' / name).read_bytes())
-    for name in ('SUMMARY.txt', 'NEXUS_DESCRIPTION.bbcode.txt', 'CHANGELOG.txt'):
+    for name in ('SUMMARY.txt', 'NEXUS_DESCRIPTION.bbcode.txt', 'CHANGELOG.txt', 'REQUIREMENTS.txt'):
         (OUT / name).write_bytes((PROJECT / 'Nexus' / name).read_bytes())
     result = {
         'name': 'Port Rotation', 'internalPlugin': 'Port Layouts', 'version': VERSION,
         'archive': str(archive), 'bytes': archive.stat().st_size, 'sha256': sha(archive.read_bytes()),
         'dllSha256': sha(dll), 'gameVersion': reports[0]['gameVersion'],
+        'foundationSha256': sha(foundation), 'requiresFoundation': '0.5.0+',
         'runtimeChecks': reports[0]['count'], 'companionChecks': reports[1]['count'],
         'files': sorted(payload), 'cleanExtractionPassed': True,
         'thumbnail': str(OUT / thumbnail.name), 'thumbnailSha256': sha(thumbnail.read_bytes()),

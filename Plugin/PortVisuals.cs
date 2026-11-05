@@ -17,6 +17,7 @@ namespace KingdomPortLayouts
         Canvas canvas;
         Vector2 originalLabelPosition, originalAnchorMin, originalAnchorMax, originalPivot;
         Quaternion originalRotation;
+        float originalLabelInset;
         internal bool LabelVisible => label.gameObject.activeSelf && labelVisibility.alpha > 0;
         void LateUpdate() => RefreshVisibility();
         internal void RefreshVisibility()
@@ -57,6 +58,7 @@ namespace KingdomPortLayouts
                 view.originalAnchorMin = view.label.anchorMin; view.originalAnchorMax = view.label.anchorMax;
                 view.originalPivot = view.label.pivot;
                 view.originalRotation = view.label.localRotation;
+                view.originalLabelInset = PortLabels.NativeInset(view.label);
             }
             if (PortGeometry.Layout(node.Element) == 0)
             {
@@ -66,7 +68,7 @@ namespace KingdomPortLayouts
             }
             else
             {
-                PortLabels.Place(view.label, PortLabels.Side(node.Element));
+                PortLabels.Place(view.label, PortLabels.Side(node.Element), view.originalLabelInset);
             }
             view.label.gameObject.SetActive(true);
             view.RefreshVisibility();
@@ -85,29 +87,29 @@ namespace KingdomPortLayouts
             if (!Occupied(element, PortSide.Right)) return PortSide.Right;
             return PortSide.Left;
         }
-        internal static void Place(RectTransform label, PortSide side)
+        internal static float NativeInset(RectTransform label)
+            => (label.pivot.y - .5f) * label.rect.height - label.anchoredPosition.y;
+        internal static void Place(RectTransform label, PortSide side, float inset)
         {
-            label.pivot = new Vector2(.5f, side == PortSide.Bottom ? 1 : 0);
+            // Native titles straddle the border; keep that treatment on every free edge.
+            label.pivot = new Vector2(.5f, .5f);
+            label.anchoredPosition = -PortGeometry.Normal(side) * inset;
             switch (side)
             {
                 case PortSide.Bottom:
                     label.anchorMin = label.anchorMax = new Vector2(.5f, 0);
-                    label.anchoredPosition = new Vector2(0, -4);
                     label.localRotation = Quaternion.identity;
                     break;
                 case PortSide.Right:
                     label.anchorMin = label.anchorMax = new Vector2(1, .5f);
-                    label.anchoredPosition = new Vector2(4, 0);
                     label.localRotation = Quaternion.Euler(0, 0, -90);
                     break;
                 case PortSide.Left:
                     label.anchorMin = label.anchorMax = new Vector2(0, .5f);
-                    label.anchoredPosition = new Vector2(-4, 0);
                     label.localRotation = Quaternion.Euler(0, 0, 90);
                     break;
                 default:
                     label.anchorMin = label.anchorMax = new Vector2(.5f, 1);
-                    label.anchoredPosition = new Vector2(0, 4);
                     label.localRotation = Quaternion.identity;
                     break;
             }
@@ -147,6 +149,7 @@ namespace KingdomPortLayouts
         RectTransform label;
         Vector2 originalLabelPosition, originalAnchorMin, originalAnchorMax, originalPivot;
         Quaternion originalRotation;
+        float originalLabelInset;
         internal void Initialize(FlowElement element)
         {
             ((RectTransform)transform).sizeDelta = PortGeometry.Size(element);
@@ -156,6 +159,7 @@ namespace KingdomPortLayouts
                 originalLabelPosition = label.anchoredPosition;
                 originalAnchorMin = label.anchorMin; originalAnchorMax = label.anchorMax; originalPivot = label.pivot;
                 originalRotation = label.localRotation;
+                originalLabelInset = PortLabels.NativeInset(label);
             }
             label.anchorMin = originalAnchorMin; label.anchorMax = originalAnchorMax; label.pivot = originalPivot;
             label.anchoredPosition = originalLabelPosition;
@@ -186,7 +190,7 @@ namespace KingdomPortLayouts
                 var image = obj.GetComponent<Image>(); image.raycastTarget = false;
                 image.sprite = ((Sprite[])AccessTools.Field(typeof(WorldFlowIO), io is FlowInput ? "_inputSprites" : "_outputSprites").GetValue(prefab))[2];
             }
-            PortLabels.Place(label, PortLabels.Side(element));
+            PortLabels.Place(label, PortLabels.Side(element), originalLabelInset);
         }
     }
 }

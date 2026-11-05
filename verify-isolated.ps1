@@ -15,10 +15,14 @@ New-Item -ItemType Directory -Path (Join-Path $bep 'plugins\PortLayouts'),(Join-
 New-Item -ItemType Junction -Path (Join-Path $bep 'core') -Value (Join-Path $gameRoot 'BepInEx\core') | Out-Null
 Copy-Item -LiteralPath (Join-Path $gameRoot 'BepInEx\config\BepInEx.cfg') -Destination (Join-Path $bep 'config\BepInEx.cfg')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'bin\Release\netstandard2.1\PortLayouts.dll') -Destination (Join-Path $bep 'plugins\PortLayouts\PortLayouts.dll')
+$foundation = Join-Path $gameRoot 'BepInEx\plugins\Foundation\Foundation.dll'
+if (-not (Test-Path -LiteralPath $foundation)) { throw 'Install Foundation 0.5.0 or newer first.' }
+New-Item -ItemType Directory -Path (Join-Path $bep 'plugins\Foundation') -Force | Out-Null
+Copy-Item -LiteralPath $foundation -Destination (Join-Path $bep 'plugins\Foundation\Foundation.dll')
 if ($WithExistingPlugins) {
     foreach ($plugin in @('ContainerColors','NightmareProgressFix','PathFinder','PartyNode','SharableBlueprints','KingdomFactoryApi','LedgerMod','LeylineConduits','Snappy')) {
         $pluginSource = Join-Path $gameRoot ('BepInEx\plugins\' + $plugin + '\' + $plugin + '.dll')
-        if (-not (Test-Path -LiteralPath $pluginSource)) { throw "Missing companion plugin: $pluginSource" }
+        if (-not (Test-Path -LiteralPath $pluginSource)) { continue }
         $pluginTarget = Join-Path $bep ('plugins\' + $plugin)
         New-Item -ItemType Directory -Path $pluginTarget -Force | Out-Null
         Copy-Item -LiteralPath $pluginSource -Destination (Join-Path $pluginTarget ($plugin + '.dll'))

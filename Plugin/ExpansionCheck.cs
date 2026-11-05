@@ -134,13 +134,19 @@ namespace KingdomPortLayouts
             if (side == PortSide.Top || side == PortSide.Bottom)
             {
                 Check(Mathf.Abs(bounds.center.x - size.x / 2) < .01f, "Top/bottom label is centred on node width");
-                Check(Mathf.Abs((side == PortSide.Top ? bounds.yMin : -size.y - bounds.yMax) - 4) < .01f, "Top/bottom label has a four-unit gap from node edge");
+                float edge = side == PortSide.Top ? 0 : -size.y;
+                float centre = edge + (side == PortSide.Top ? -6 : 6);
+                Check(Mathf.Abs(bounds.center.y - centre) < .01f && bounds.yMin < edge && bounds.yMax > edge,
+                    "Top/bottom label overlaps the border with the native six-unit inward inset");
                 Check(Quaternion.Angle(title.localRotation, Quaternion.identity) < .01f, "Top/bottom text reads normally without inversion");
             }
             else
             {
                 Check(Mathf.Abs(bounds.center.y + size.y / 2) < .01f, "Side label is centred on node height");
-                Check(Mathf.Abs((side == PortSide.Right ? bounds.xMin - size.x : -bounds.xMax) - 4) < .01f, "Side label has a four-unit gap from node edge");
+                float edge = side == PortSide.Right ? size.x : 0;
+                float centre = edge + (side == PortSide.Right ? -6 : 6);
+                Check(Mathf.Abs(bounds.center.x - centre) < .01f && bounds.xMin < edge && bounds.xMax > edge,
+                    "Side label overlaps the border with the native six-unit inward inset");
                 var down = owner.InverseTransformDirection(title.TransformDirection(Vector3.down));
                 Near(down, -PortGeometry.Normal(side), "Bottoms of sideways letters face inward toward the node");
             }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework><LangVersion>latest</LangVersion>
-    <Version>1.0.10</Version><AssemblyName>PortLayouts</AssemblyName>
+    <Version>1.0.12</Version><AssemblyName>PortLayouts</AssemblyName>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <GameRoot>$(MSBuildThisFileDirectory)..\..\</GameRoot>
   </PropertyGroup>
@@ -9,6 +9,7 @@
     <Compile Include="Core\*.cs"/><Compile Include="Plugin\*.cs"/>
     <Reference Include="BepInEx"><HintPath>$(GameRoot)BepInEx\core\BepInEx.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="0Harmony"><HintPath>$(GameRoot)BepInEx\core\0Harmony.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Foundation"><HintPath>$(GameRoot)BepInEx\plugins\Foundation\Foundation.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="Assembly-CSharp"><HintPath>$(GameRoot)KingdomInc_Data\Managed\Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine"><HintPath>$(GameRoot)KingdomInc_Data\Managed\UnityEngine.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="UnityEngine.CoreModule"><HintPath>$(GameRoot)KingdomInc_Data\Managed\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
