@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework><LangVersion>latest</LangVersion>
-    <Version>1.0.12</Version><AssemblyName>PortLayouts</AssemblyName>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <GameRoot>$(MSBuildThisFileDirectory)..\..\</GameRoot>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>PortLayouts</AssemblyName>
+    <Version>1.0.12</Version>
+    <GameRoot Condition="'$(GameRoot)' == ''">$(MSBuildThisFileDirectory)..\..\..\</GameRoot>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Core\*.cs"/><Compile Include="Plugin\*.cs"/>
     <Reference Include="BepInEx"><HintPath>$(GameRoot)BepInEx\core\BepInEx.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="0Harmony"><HintPath>$(GameRoot)BepInEx\core\0Harmony.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="Foundation"><HintPath>$(GameRoot)BepInEx\plugins\Foundation\Foundation.dll</HintPath><Private>false</Private></Reference>
