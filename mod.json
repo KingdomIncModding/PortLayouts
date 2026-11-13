@@ -6,9 +6,9 @@
   "description": "For Kingdom Inc game version 1.0.14. Choose which sides of your Kingdom Inc buildings hold their inputs and outputs with hotkey rotation controls and persistent layout saving.",
   "repository": {
     "platform": "GitHub",
-    "owner": "urakkaamyx",
+    "owner": "KingdomIncModding",
     "name": "KingdomInc_PortLayouts",
-    "url": "https://github.com/urakkaamyx/KingdomInc_PortLayouts",
+    "url": "https://github.com/KingdomIncModding/KingdomInc_PortLayouts",
     "branch": "main",
     "visibility": "public",
     "topics": [
@@ -62,7 +62,7 @@
     "gameIntegration": "Foundation"
   },
   "publishing": {
-    "githubReleases": "https://github.com/urakkaamyx/KingdomInc_PortLayouts/releases/tag/v1.0.12",
+    "githubReleases": "https://github.com/KingdomIncModding/KingdomInc_PortLayouts/releases/tag/v1.0.12",
     "nexusMods": "https://www.nexusmods.com/kingdominc/mods/15",
     "archivePreviousReleases": false
   }
