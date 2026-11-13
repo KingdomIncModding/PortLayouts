@@ -1,17 +1,13 @@
-using Assets.Behaviour.Flow;
-using Assets.Behaviour.UI;
-using Assets.Source.Flow;
-using HarmonyLib;
-using LightJson;
+using KingdomFoundation.Api;
+using KingdomFoundation.Json;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace KingdomPortLayouts
 {
-        [HarmonyPatch(typeof(WorldFlowIO), nameof(WorldFlowIO.SetIO))]
-    static partial class PositionPorts
+    static class PositionPorts
     {
-        static void Postfix(WorldFlowIO __instance, FlowIO io) => PortVisuals.Apply(__instance, io);
+        internal static void Postfix(UnityEngine.Component __instance, WorkspacePort io) => PortVisuals.Apply(__instance, io);
     }
 }

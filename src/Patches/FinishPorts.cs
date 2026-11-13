@@ -1,22 +1,20 @@
-using Assets.Behaviour.Flow;
-using Assets.Behaviour.UI;
-using Assets.Source.Flow;
-using HarmonyLib;
-using LightJson;
+using KingdomFoundation.Api;
+using KingdomFoundation.Json;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace KingdomPortLayouts
 {
-        [HarmonyPatch(typeof(WorldFlowElement), nameof(WorldFlowElement.UpdateIO))]
-    static partial class FinishPorts
+    static class FinishPorts
     {
-        static void Prefix(WorldFlowElement __instance)
+        internal static void Prefix(UnityEngine.Behaviour __instance)
         {
             // Native UpdateIO destroys old views but leaves them in this list.
             // Keep native drag/mirror loops restricted to the current port views.
-            ((System.Collections.Generic.List<WorldFlowIO>)AccessTools.Field(typeof(WorldFlowElement), "_io").GetValue(__instance)).Clear();
+            FoundationApi.WorkspaceVisuals.ClearPortViewIndex(__instance);
         }
+
+        internal static void Postfix(UnityEngine.Behaviour __instance) => PortNodeView.Apply(__instance);
     }
 }

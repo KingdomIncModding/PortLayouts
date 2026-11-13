@@ -1,6 +1,8 @@
-﻿# Port Layouts
+# Port Layouts
 
-[GitHub releases](https://github.com/urakkaamyx/KingdomInc_PortLayouts/releases) · [Nexus Mods](https://www.nexusmods.com/kingdominc/mods/15) · Version 1.0.12
+**Current release: 1.0.13 — for Kingdom Inc game version 1.0.14.**
+
+[GitHub releases](https://github.com/urakkaamyx/KingdomInc_PortLayouts/releases) · [Nexus Mods](https://www.nexusmods.com/kingdominc/mods/15) · Version 1.0.13
 
 Choose which sides of your Kingdom Inc buildings hold their inputs and outputs. The building body and icon stay upright, with ports, pipe connections, and snapping following the selected layout.
 
@@ -26,7 +28,7 @@ Cycling returns to Left/Right after the sixth layout and resets reversal to the 
 ## Installation
 
 1. Install [BepInEx 5 (Windows x64 Mono)](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.6).
-2. Install [Foundation](https://www.nexusmods.com/kingdominc/mods/18) (0.11.0 or newer).
+2. Install [Foundation](https://www.nexusmods.com/kingdominc/mods/18) (0.14.0 or newer).
 3. Extract the release ZIP into your Kingdom Inc game folder.
 4. Confirm the file is located at `BepInEx/plugins/PortLayouts/PortLayouts.dll`.
 5. Launch the game and unlock Port Rotation in Tech Tree > Mods!
@@ -35,15 +37,15 @@ Cycling returns to Left/Right after the sixth layout and resets reversal to the 
 
 | Class.Method | Hook Type | Impact |
 |---|---|---|
-| FlowElement.CreateCopy | Harmony Postfix | Preserves port rotation and side layouts when copying or duplicating buildings. |
-| WorldFlowElement.UpdateIO | Harmony Prefix / Postfix | Refreshes and updates building I/O port node views when layout changes. |
-| WorldFlowElement.Size | Harmony Prefix | Dynamically calculates building bounds based on active rotated port positions. |
-| FlowElement.FromJson | Harmony Postfix | Restores saved custom port rotations and layouts from kingdom save data. |
-| WorldFlowPipe.UpdateLinePositions | Harmony Postfix | Adjusts connecting pipe endpoints and routes to snap to rotated ports. |
-| WorldFlowElement.OnPointerClick | Harmony Prefix | Intercepts click events with Shift+Alt / Alt modifiers to cycle port layouts or reverse directions. |
-| WorldFlowIO.SetIO | Harmony Postfix | Positions port visuals, connection points, and snapping colliders around the building perimeter. |
-| WorldFlowGhost.SetElement | Harmony Postfix | Aligns placement preview ghosts with the selected port rotation layout. |
-| FlowElement.ToJson | Harmony Postfix | Serializes custom building port layout and orientation data into kingdom saves. |
+| FlowElement.CreateCopy | Foundation hook (postfix) | Preserves port rotation and side layouts when copying or duplicating buildings. |
+| WorldFlowElement.UpdateIO | Foundation hooks (prefix / postfix) | Refreshes and updates building I/O port node views when layout changes. |
+| WorldFlowElement.Size | Foundation hook (prefix) | Dynamically calculates building bounds based on active rotated port positions. |
+| FlowElement.FromJson | Foundation hook (postfix) | Restores saved custom port rotations and layouts from kingdom save data. |
+| WorldFlowPipe.UpdateLinePositions | Foundation hook (postfix) | Adjusts connecting pipe endpoints and routes to snap to rotated ports. |
+| WorldFlowElement.OnPointerClick | Foundation hook (prefix) | Intercepts click events with Shift+Alt / Alt modifiers to cycle port layouts or reverse directions. |
+| WorldFlowIO.SetIO | Foundation hook (postfix) | Positions port visuals, connection points, and snapping colliders around the building perimeter. |
+| WorldFlowGhost.SetElement | Foundation hook (postfix) | Aligns placement preview ghosts with the selected port rotation layout. |
+| FlowElement.ToJson | Foundation hook (postfix) | Serializes custom building port layout and orientation data into kingdom saves. |
 
 ## Removal
 
