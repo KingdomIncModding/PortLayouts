@@ -2,7 +2,7 @@
 
 **Current release: 1.0.13 — for Kingdom Inc game version 1.0.14.**
 
-[GitHub releases](https://github.com/KingdomIncModding/KingdomInc_PortLayouts/releases) · [Nexus Mods](https://www.nexusmods.com/kingdominc/mods/15) · Version 1.0.13
+[GitHub releases](https://github.com/KingdomIncModding/PortLayouts/releases) · [Nexus Mods](https://www.nexusmods.com/kingdominc/mods/15) · Version 1.0.13
 
 Choose which sides of your Kingdom Inc buildings hold their inputs and outputs. The building body and icon stay upright, with ports, pipe connections, and snapping following the selected layout.
 
@@ -53,4 +53,4 @@ Close the game and delete `BepInEx/plugins/PortLayouts/`. Buildings return to na
 
 ## Credits and Source
 
-Created by **Urakka** (rockyamyx). [Source code on GitHub](https://github.com/KingdomIncModding/KingdomInc_PortLayouts). Game artwork belongs to its respective owners.
+Created by **Urakka** (rockyamyx). [Source code on GitHub](https://github.com/KingdomIncModding/PortLayouts). Game artwork belongs to its respective owners.
