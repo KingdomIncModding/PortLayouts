@@ -1,70 +1,70 @@
 {
-  "id": "PortLayouts",
-  "name": "Port Layouts",
-  "version": "1.0.14",
-  "author": "Urakka",
-  "description": "For Kingdom Inc game version 1.0.14. Choose which sides of your Kingdom Inc buildings hold their inputs and outputs with hotkey rotation controls and persistent layout saving.",
-  "repository": {
-    "platform": "GitHub",
-    "owner": "KingdomIncModding",
-    "name": "PortLayouts",
-    "url": "https://github.com/KingdomIncModding/PortLayouts",
-    "branch": "main",
-    "visibility": "public",
-    "topics": [
-      "kingdom-inc",
-      "kingdom-inc-mod",
-      "bepinex",
-      "harmony",
-      "port-rotation",
-      "layout"
-    ],
-    "latestTag": "v1.0.13"
-  },
-  "distribution": {
-    "nexus": {
-      "game": "kingdominc",
-      "modId": 15,
-      "fileId": 8307264,
-      "url": "https://www.nexusmods.com/kingdominc/mods/15",
-      "requirements": [
-        {
-          "name": "Foundation",
-          "url": "https://www.nexusmods.com/kingdominc/mods/18",
-          "minimumVersion": "0.14.4",
-          "type": "nexus",
-          "fileId": 8358756
-        },
-        {
-          "name": "BepInEx 5",
-          "url": "https://github.com/BepInEx/BepInEx/releases",
-          "minimumVersion": "5.x",
-          "type": "offsite"
-        }
-      ],
-      "tags": [
-        "AI-Generated Content",
-        "Quality of Life",
-        "User Interface"
-      ],
-      "tagsVerified": true,
-      "requirementsVerified": true,
-      "runtimeVersionId": "46785078755460"
-    }
-  },
-  "development": {
-    "framework": "Foundation",
-    "language": "C#",
-    "target": "netstandard2.1",
-    "dependencies": [
-      "BepInEx 5",
-      "Foundation 0.14.0"
-    ],
-    "gameIntegration": "Foundation"
-  },
-  "publishing": {
-    "githubReleases": "https://github.com/KingdomIncModding/PortLayouts/releases/tag/v1.0.13",
-    "nexusMods": "https://www.nexusmods.com/kingdominc/mods/15",
-    "archivePreviousReleases": false
-  }
+    "id":  "PortLayouts",
+    "name":  "Port Layouts",
+    "version":  "1.0.14",
+    "author":  "Urakka",
+    "description":  "For Kingdom Inc game version 1.0.14. Choose which sides of your Kingdom Inc buildings hold their inputs and outputs with hotkey rotation controls and persistent layout saving.",
+    "repository":  {
+                       "platform":  "GitHub",
+                       "owner":  "KingdomIncModding",
+                       "name":  "PortLayouts",
+                       "url":  "https://github.com/KingdomIncModding/PortLayouts",
+                       "branch":  "main",
+                       "visibility":  "public",
+                       "topics":  [
+                                      "kingdom-inc",
+                                      "kingdom-inc-mod",
+                                      "bepinex",
+                                      "harmony",
+                                      "port-rotation",
+                                      "layout"
+                                  ],
+                       "latestTag":  "v1.0.14"
+                   },
+    "distribution":  {
+                         "nexus":  {
+                                       "game":  "kingdominc",
+                                       "modId":  15,
+                                       "fileId":  8307264,
+                                       "url":  "https://www.nexusmods.com/kingdominc/mods/15",
+                                       "requirements":  [
+                                                            {
+                                                                "name":  "Foundation",
+                                                                "url":  "https://www.nexusmods.com/kingdominc/mods/18",
+                                                                "minimumVersion":  "0.14.4",
+                                                                "type":  "nexus",
+                                                                "fileId":  8358756
+                                                            },
+                                                            {
+                                                                "name":  "BepInEx 5",
+                                                                "url":  "https://github.com/BepInEx/BepInEx/releases",
+                                                                "minimumVersion":  "5.x",
+                                                                "type":  "offsite"
+                                                            }
+                                                        ],
+                                       "tags":  [
+                                                    "AI-Generated Content",
+                                                    "Quality of Life",
+                                                    "User Interface"
+                                                ],
+                                       "tagsVerified":  true,
+                                       "requirementsVerified":  true,
+                                       "runtimeVersionId":  "46785078755460"
+                                   }
+                     },
+    "development":  {
+                        "framework":  "Foundation",
+                        "language":  "C#",
+                        "target":  "netstandard2.1",
+                        "dependencies":  [
+                                             "BepInEx 5",
+                                             "Foundation 0.14.0"
+                                         ],
+                        "gameIntegration":  "Foundation"
+                    },
+    "publishing":  {
+                       "githubReleases":  "https://github.com/KingdomIncModding/PortLayouts/releases/tag/v1.0.14",
+                       "nexusMods":  "https://www.nexusmods.com/kingdominc/mods/15",
+                       "archivePreviousReleases":  false
+                   }
 }
