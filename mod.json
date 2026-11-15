@@ -1,7 +1,7 @@
 {
   "id": "PortLayouts",
   "name": "Port Layouts",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "author": "Urakka",
   "description": "For Kingdom Inc game version 1.0.14. Choose which sides of your Kingdom Inc buildings hold their inputs and outputs with hotkey rotation controls and persistent layout saving.",
   "repository": {
@@ -19,7 +19,7 @@
       "port-rotation",
       "layout"
     ],
-    "latestTag": "v1.0.12"
+    "latestTag": "v1.0.13"
   },
   "distribution": {
     "nexus": {
@@ -31,8 +31,9 @@
         {
           "name": "Foundation",
           "url": "https://www.nexusmods.com/kingdominc/mods/18",
-          "minimumVersion": "0.14.0",
-          "type": "nexus"
+          "minimumVersion": "0.14.4",
+          "type": "nexus",
+          "fileId": 8358756
         },
         {
           "name": "BepInEx 5",
@@ -62,7 +63,7 @@
     "gameIntegration": "Foundation"
   },
   "publishing": {
-    "githubReleases": "https://github.com/KingdomIncModding/PortLayouts/releases/tag/v1.0.12",
+    "githubReleases": "https://github.com/KingdomIncModding/PortLayouts/releases/tag/v1.0.13",
     "nexusMods": "https://www.nexusmods.com/kingdominc/mods/15",
     "archivePreviousReleases": false
   }

@@ -58,7 +58,15 @@ namespace KingdomPortLayouts
             }
         };
         static readonly ConditionalWeakTable<WorkspaceObject, global::KingdomPortLayouts.State> states = new ConditionalWeakTable<WorkspaceObject, global::KingdomPortLayouts.State>();
-        internal static bool CanRotate(WorkspaceObject element) => !element.IsJunction && element.TypeId != "Ledger";
+        internal static bool CanRotate(WorkspaceObject element) => element != null && element.Kind == WorkspaceObjectKind.Building && !element.IsJunction && element.TypeId != "Ledger" && PortLayoutsApi.AllowsRotation(element);
+        internal static void ResetAllStates()
+        {
+            if (FoundationApi.Kingdom == null)
+                return;
+            foreach (var obj in FoundationApi.WorkspaceAccess.AllObjects)
+                if (obj.Kind == WorkspaceObjectKind.Building)
+                    states.Remove(obj);
+        }
         internal static string Description(WorkspaceObject element) => "Inputs: " + Side(element, true) + " / Outputs: " + Side(element, false);
         internal static Vector3 Endpoint(WorkspacePort io)
         {

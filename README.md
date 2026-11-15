@@ -1,8 +1,8 @@
 # Port Layouts
 
-**Current release: 1.0.13 — for Kingdom Inc game version 1.0.14.**
+**Current release: 1.0.14 — for Kingdom Inc game version 1.0.14.**
 
-[GitHub releases](https://github.com/KingdomIncModding/PortLayouts/releases) · [Nexus Mods](https://www.nexusmods.com/kingdominc/mods/15) · Version 1.0.13
+[GitHub releases](https://github.com/KingdomIncModding/PortLayouts/releases) · [Nexus Mods](https://www.nexusmods.com/kingdominc/mods/15) · Version 1.0.14
 
 Choose which sides of your Kingdom Inc buildings hold their inputs and outputs. The building body and icon stay upright, with ports, pipe connections, and snapping following the selected layout.
 
@@ -28,7 +28,7 @@ Cycling returns to Left/Right after the sixth layout and resets reversal to the 
 ## Installation
 
 1. Install [BepInEx 5 (Windows x64 Mono)](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.23.6).
-2. Install [Foundation](https://www.nexusmods.com/kingdominc/mods/18) (0.14.0 or newer).
+2. Install [Foundation](https://www.nexusmods.com/kingdominc/mods/18) (0.14.4 or newer).
 3. Extract the release ZIP into your Kingdom Inc game folder.
 4. Confirm the file is located at `BepInEx/plugins/PortLayouts/PortLayouts.dll`.
 5. Launch the game and unlock Port Rotation in Tech Tree > Mods!

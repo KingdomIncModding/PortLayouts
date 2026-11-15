@@ -9,7 +9,8 @@ using UnityEngine.EventSystems;
 namespace KingdomPortLayouts
 {
     [BepInPlugin(Id, "Port Layouts", Version)]
-    [BepInDependency("urakka.kingdominc.foundation", "0.14.0")]
+    [BepInDependency("urakka.kingdominc.foundation", "0.14.4")]
+    [BepInDependency(UndoIntegration.UndoPluginId, BepInDependency.DependencyFlags.SoftDependency)]
     public sealed class PortLayoutsPlugin : BaseUnityPlugin
     {
         internal static bool Blocked(UnityEngine.Behaviour node)
@@ -61,9 +62,10 @@ namespace KingdomPortLayouts
             return true;
         }
 
-        public const string Id = "urakka.kingdominc.portlayouts", Version = "1.0.13";
+        public const string Id = "urakka.kingdominc.portlayouts", Version = "1.0.14";
         internal const string ResearchId = Id + ".rotation";
         FoundationModContext foundation;
+        IDisposable undoRegistration;
         internal static bool RotationUnlocked => FoundationApi.World.IsInKingdom && FoundationApi.Progression.HasTech(ResearchId);
 
         readonly System.Collections.Generic.List<IDisposable> hooks = new System.Collections.Generic.List<IDisposable>();
@@ -76,9 +78,12 @@ namespace KingdomPortLayouts
                 foundation = FoundationApi.ForMod(Id);
                 foundation.Register(new TechNodeDefinition(ResearchId, "Port Rotation", Id, "Port Layouts", new Vector2(640, 0), "Unlock six input/output side layouts. Shift + Alt + left-click cycles layouts; Alt + left-click reverses the selected pair. Expandable-slot buildings keep their native ports.", research: TechNodeOptions.Create(fixedCost: new GameMoney())));
                 RegisterHooks();
+                undoRegistration = UndoIntegration.TryRegister();
             }
             catch
             {
+                undoRegistration?.Dispose();
+                undoRegistration = null;
                 foundation?.Dispose();
                 DisposeHooks();
                 if (Instance == this)
@@ -128,8 +133,14 @@ namespace KingdomPortLayouts
 
         void OnDestroy()
         {
-            foundation?.Dispose();
             DisposeHooks();
+            PortGeometry.ResetAllStates();
+            PortNodeView.RestoreAndRemoveAll();
+            PortGhostView.RestoreAndRemoveAll();
+            PortLayoutsApi.ClearAll();
+            undoRegistration?.Dispose();
+            undoRegistration = null;
+            foundation?.Dispose();
             if (Instance == this)
                 Instance = null;
         }

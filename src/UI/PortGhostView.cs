@@ -70,5 +70,30 @@ namespace KingdomPortLayouts
 
             PortLabels.Place(label, PortLabels.Side(element), originalLabelInset);
         }
+
+        internal static void RestoreAndRemoveAll()
+        {
+            var ghosts = Resources.FindObjectsOfTypeAll<PortGhostView>();
+            foreach (var ghost in ghosts)
+            {
+                if (!ghost || !ghost.gameObject.scene.IsValid())
+                    continue;
+                var ports = ghost.transform.Find("PortLayouts.Preview");
+                if (ports)
+                {
+                    ports.gameObject.SetActive(false);
+                    Destroy(ports.gameObject);
+                }
+                if (ghost.label)
+                {
+                    ghost.label.anchorMin = ghost.originalAnchorMin;
+                    ghost.label.anchorMax = ghost.originalAnchorMax;
+                    ghost.label.pivot = ghost.originalPivot;
+                    ghost.label.anchoredPosition = ghost.originalLabelPosition;
+                    ghost.label.localRotation = ghost.originalRotation;
+                }
+                Destroy(ghost);
+            }
+        }
     }
 }

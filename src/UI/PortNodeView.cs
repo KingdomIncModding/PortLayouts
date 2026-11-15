@@ -74,13 +74,48 @@ namespace KingdomPortLayouts
         {
             if (!label || !node)
                 return;
-            bool hasTarget = FoundationApi.WorkspaceVisuals.HasNativeDragTarget;
+            bool hasTarget = FoundationApi.WorkspaceVisuals.HasNativeDragTarget || FoundationApi.UiAccess.IsDeconstructionVisible;
             // Keep the native move handle alive even while its artwork is hidden.
             // Screen-space geometry also works when a placement ghost intercepts pointer events.
             bool visible = !hasTarget || FoundationApi.WorkspaceVisuals.IsNativeMoveHandleFor(node) || HoveringNode();
             labelVisibility.alpha = visible ? 1 : 0;
             labelVisibility.blocksRaycasts = visible;
             labelVisibility.interactable = visible;
+        }
+
+        internal static void RestoreAndRemoveAll()
+        {
+            var views = Resources.FindObjectsOfTypeAll<PortNodeView>();
+            foreach (var view in views)
+            {
+                if (!view || !view.gameObject.scene.IsValid())
+                    continue;
+                if (view.label)
+                {
+                    view.label.anchorMin = view.originalAnchorMin;
+                    view.label.anchorMax = view.originalAnchorMax;
+                    view.label.pivot = view.originalPivot;
+                    view.label.anchoredPosition = view.originalLabelPosition;
+                    view.label.localRotation = view.originalRotation;
+                }
+                if (view.labelVisibility)
+                {
+                    view.labelVisibility.alpha = 1f;
+                    view.labelVisibility.blocksRaycasts = true;
+                    view.labelVisibility.interactable = true;
+                }
+                if (view.node)
+                {
+                    var item = FoundationApi.WorkspaceAccess.FromView(view.node);
+                    if (item != null && view.node.transform is RectTransform rect)
+                        rect.sizeDelta = PortGeometry.CanonicalSize(item);
+                    FoundationApi.WorkspaceVisuals.ClearPortViewIndex(view.node);
+                    FoundationApi.WorkspaceVisuals.RefreshPorts(view.node);
+                    if (item != null)
+                        PortGeometry.RefreshPipes(item);
+                }
+                Destroy(view);
+            }
         }
     }
 }
