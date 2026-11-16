@@ -19,7 +19,7 @@
                                       "port-rotation",
                                       "layout"
                                   ],
-                       "latestTag":  "v1.0.14"
+                       "latestTag":  "v1.0.15"
                    },
     "distribution":  {
                          "nexus":  {
@@ -63,7 +63,7 @@
                         "gameIntegration":  "Foundation"
                     },
     "publishing":  {
-                       "githubReleases":  "https://github.com/KingdomIncModding/PortLayouts/releases/tag/v1.0.14",
+                       "githubReleases":  "https://github.com/KingdomIncModding/PortLayouts/releases/tag/v1.0.15",
                        "nexusMods":  "https://www.nexusmods.com/kingdominc/mods/15",
                        "archivePreviousReleases":  false
                    }
