@@ -1,7 +1,7 @@
 {
     "id":  "PortLayouts",
     "name":  "Port Layouts",
-    "version":  "1.0.14",
+    "version":  "1.0.15",
     "author":  "Urakka",
     "description":  "For Kingdom Inc game version 1.0.14. Choose which sides of your Kingdom Inc buildings hold their inputs and outputs with hotkey rotation controls and persistent layout saving.",
     "repository":  {

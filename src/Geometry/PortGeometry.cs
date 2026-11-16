@@ -24,7 +24,8 @@ namespace KingdomPortLayouts
 
         internal static Vector2 CanonicalSize(WorkspaceObject element)
         {
-            var fallback = FoundationApi.WorkspaceVisuals.BuildingTemplate(element).sizeDelta;
+            var template = FoundationApi.WorkspaceVisuals.BuildingTemplate(element);
+            var fallback = template ? template.sizeDelta : Vector2.zero;
             return new Vector2(element.Size.x > 0 ? element.Size.x : fallback.x, element.Size.y > 0 ? element.Size.y : fallback.y);
         }
 

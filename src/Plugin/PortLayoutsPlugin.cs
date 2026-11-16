@@ -62,7 +62,7 @@ namespace KingdomPortLayouts
             return true;
         }
 
-        public const string Id = "urakka.kingdominc.portlayouts", Version = "1.0.14";
+        public const string Id = "urakka.kingdominc.portlayouts", Version = "1.0.15";
         internal const string ResearchId = Id + ".rotation";
         FoundationModContext foundation;
         IDisposable undoRegistration;
@@ -131,12 +131,19 @@ namespace KingdomPortLayouts
             hooks.Clear();
         }
 
+        private bool quitting;
+
+        void OnApplicationQuit() => quitting = true;
+
         void OnDestroy()
         {
             DisposeHooks();
             PortGeometry.ResetAllStates();
-            PortNodeView.RestoreAndRemoveAll();
-            PortGhostView.RestoreAndRemoveAll();
+            if (!quitting)
+            {
+                PortNodeView.RestoreAndRemoveAll();
+                PortGhostView.RestoreAndRemoveAll();
+            }
             PortLayoutsApi.ClearAll();
             undoRegistration?.Dispose();
             undoRegistration = null;

@@ -1,8 +1,8 @@
 # Port Layouts
 
-**Current release: 1.0.14 — for Kingdom Inc game version 1.0.14.**
+**Current release: 1.0.15 — for Kingdom Inc game version 1.0.14.**
 
-[GitHub releases](https://github.com/KingdomIncModding/PortLayouts/releases) · [Nexus Mods](https://www.nexusmods.com/kingdominc/mods/15) · Version 1.0.14
+[GitHub releases](https://github.com/KingdomIncModding/PortLayouts/releases) · [Nexus Mods](https://www.nexusmods.com/kingdominc/mods/15) · Version 1.0.15
 
 Choose which sides of your Kingdom Inc buildings hold their inputs and outputs. The building body and icon stay upright, with ports, pipe connections, and snapping following the selected layout.
 

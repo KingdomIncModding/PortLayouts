@@ -4,7 +4,7 @@
     <LangVersion>latest</LangVersion>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <AssemblyName>PortLayouts</AssemblyName>
-    <Version>1.0.14</Version>
+    <Version>1.0.15</Version>
     <GameRoot Condition="'$(GameRoot)' == ''">$(MSBuildThisFileDirectory)..\..\</GameRoot>
     <FoundationDll Condition="'$(FoundationDll)' == '' And Exists('$(MSBuildThisFileDirectory)..\Foundation\Release\Foundation.dll')">$(MSBuildThisFileDirectory)..\Foundation\Release\Foundation.dll</FoundationDll>
     <FoundationDll Condition="'$(FoundationDll)' == ''">$(GameRoot)BepInEx\plugins\Foundation\Foundation.dll</FoundationDll>
