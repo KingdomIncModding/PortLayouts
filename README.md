@@ -1,5 +1,7 @@
 # Port Layouts
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6V62AX30M)
+
 **Current release: 1.0.15 — for Kingdom Inc game version 1.0.14.**
 
 [GitHub releases](https://github.com/KingdomIncModding/PortLayouts/releases) · [Nexus Mods](https://www.nexusmods.com/kingdominc/mods/15) · Version 1.0.15
@@ -54,3 +56,9 @@ Close the game and delete `BepInEx/plugins/PortLayouts/`. Buildings return to na
 ## Credits and Source
 
 Created by **Urakka** (rockyamyx). [Source code on GitHub](https://github.com/KingdomIncModding/PortLayouts). Game artwork belongs to its respective owners.
+
+## Support
+
+If you enjoy these Kingdom Inc mods and tools, consider supporting development on Ko-fi!
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6V62AX30M)
